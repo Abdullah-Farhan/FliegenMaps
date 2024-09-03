@@ -5,6 +5,16 @@ import { usAea } from "@react-jvectormap/unitedstates";
 import { worldMill } from "@react-jvectormap/world";
 
 const Maps = () => {
+  const countryNames = {
+    US: 'United States',
+    CA: 'Canada',
+    GB: 'United Kingdom',
+    DE: 'Germany',
+    FR: 'France',
+    IT: 'Italy',
+    ES: 'Spain',
+  };
+
   const regionStyle = {
     initial: {
       fill: "#00448C",
@@ -20,11 +30,12 @@ const Maps = () => {
   };
 
   const [mapData, setMapData] = useState({
-    "US-AL": 0,
+    "US-AL": 100,
     "US-AK": 200,
     "US-AZ": 300,
     "US-AR": 400,
   });
+  
   const selectedRegionsUS = Object.keys(mapData).reduce((acc, key) => {
     acc[key] = { zoom: true };
     return acc;
@@ -38,12 +49,13 @@ const Maps = () => {
     FR: 500,
     IT: 600,
     ES: 700,
-  })
+  });
 
   const selectedRegions = Object.keys(worldData).reduce((acc, key) => {
     acc[key] = { zoom: true };
     return acc;
   }, {});
+
   const series = {
     regions: [
       {
@@ -53,7 +65,6 @@ const Maps = () => {
       },
     ],
   };
-  
 
   const worldSeries = {
     regions: [
@@ -64,18 +75,18 @@ const Maps = () => {
       },
     ],
   };
-  
+
   return (
     <div className="p-3">
       {/* div containing USA and the table of its data */}
-      <div className="w-full h-[600px] flex flex-row">
+      <div className="w-full h-[600px] flex flex-col md:flex-row mb-80 md:mb-5 ">
         {/* div containing the map side of USA */}
-        <div className="w-[60%] h-full rounded-[6px] shadow-lg">
+        <div className="md:w-[60%] h-full rounded-[6px] shadow-lg">
           <div className="w-full">
             <h1 className="p-3">Domestic Assets</h1>
             <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
           </div>
-          <div className="relative h-[444px] w-[865px]">
+          <div className="relative h-[444px] w-full">
             <VectorMap
               className="mt-3"
               map={usAea}
@@ -89,16 +100,16 @@ const Maps = () => {
           </div>
         </div>
         {/* div containing the table side of USA */}
-        <div className="w-[39%] ml-[1%] shadow-lg rounded-[6px] h-full">
-        <h1 className="p-3">States</h1>
-        <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
+        <div className="md:w-[39%] mt-5 md:mt-0 shadow-lg rounded-[6px] h-full">
+          <h1 className="p-3">States</h1>
+          <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
           <table className="w-full mt-[20px]">
             <thead>
               <tr>
-                <th className="bg-[#15498A] text-white p-3 text-left">
+                <th className="bg-[#15498A] text-white p-3 text-left w-[200px]">
                   States
                 </th>
-                <th className="bg-[#15498A] text-white p-3 text-left pl-20">
+                <th className="bg-[#15498A] text-white p-3 text-left">
                   # of Devices
                 </th>
               </tr>
@@ -108,22 +119,23 @@ const Maps = () => {
                 const stateCode = key.replace("US-", "");
                 return (
                   <tr key={key} className="hover:bg-gray-100 border-b">
-                    <td className="p-3">{stateCode}</td>
-                    <td className="p-3 pl-20">{value}</td>
+                    <td className="p-3 w-[200px]">{stateCode}</td>
+                    <td className="p-3">{value}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+        </div>
       </div>
-      </div>
-      <div className="w-full h-[600px] flex flex-row my-5">
-        <div className="w-[60%] h-full rounded-[6px] shadow-lg">
+      
+      <div className="w-full h-[600px] flex flex-col md:flex-row mb-5">
+        <div className="md:w-[60%] h-full rounded-[6px] shadow-lg">
           <div className="w-full">
             <h1 className="p-3">International Assets</h1>
             <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
           </div>
-          <div className="relative h-[444px] w-[865px]">
+          <div className="relative h-[444px] w-full">
             <VectorMap
               className="mt-3"
               map={worldMill}
@@ -136,16 +148,16 @@ const Maps = () => {
             />
           </div>
         </div>
-        <div className="w-[39%] ml-[1%] shadow-lg rounded-[6px] h-full">
-        <h1 className="p-3">States</h1>
-        <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
+        <div className="md:w-[39%] mt-5 md:mt-0 shadow-lg rounded-[6px] h-full">
+          <h1 className="p-3">Countries</h1>
+          <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
           <table className="w-full mt-[20px]">
             <thead>
               <tr>
-                <th className="bg-[#15498A] text-white p-3 text-left">
+                <th className="bg-[#15498A] text-white p-3 text-left w-[200px]">
                   Countries
                 </th>
-                <th className="bg-[#15498A] text-white p-3 text-left pl-20">
+                <th className="bg-[#15498A] text-white p-3 text-left">
                   # of Devices
                 </th>
               </tr>
@@ -154,14 +166,14 @@ const Maps = () => {
               {Object.entries(worldData).map(([key, value]) => {
                 return (
                   <tr key={key} className="hover:bg-gray-100 border-b">
-                    <td className="p-3">{key}</td>
-                    <td className="p-3 pl-20">{value}</td>
+                    <td className="p-3 w-[200px]">{countryNames[key]}</td>
+                    <td className="p-3">{value}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-      </div>
+        </div>
       </div>
     </div>
   );
