@@ -128,7 +128,7 @@ const Maps = () => {
           </table>
         </div>
       </div>
-      
+      {/* Similar structure as above for the world map */}
       <div className="w-full h-[600px] flex flex-col md:flex-row mb-5">
         <div className="md:w-[60%] h-full rounded-[6px] shadow-lg">
           <div className="w-full">
