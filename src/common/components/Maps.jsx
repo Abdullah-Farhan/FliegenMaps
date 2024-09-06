@@ -3,16 +3,22 @@ import React, { useState } from "react";
 import { VectorMap } from "@react-jvectormap/core";
 import { usAea } from "@react-jvectormap/unitedstates";
 import { worldMill } from "@react-jvectormap/world";
+import { Table, Popover, Button } from "antd";
+import "./Maps.css";
 
 const Maps = () => {
   const countryNames = {
-    US: 'United States',
-    CA: 'Canada',
-    GB: 'United Kingdom',
-    DE: 'Germany',
-    FR: 'France',
-    IT: 'Italy',
-    ES: 'Spain',
+    US: "United States",
+    CA: "Canada",
+    GB: "United Kingdom",
+    DE: "Germany",
+    FR: "France",
+    IT: "Italy",
+    ES: "Spain",
+    PK: "Pakistan",
+    SA: "Saudi Arabia",
+    RU: "Russia",
+    TR: "Turkey",
   };
 
   const regionStyle = {
@@ -24,7 +30,7 @@ const Maps = () => {
       "stroke-opacity": 0,
     },
     selected: {
-      fill: '#00448C',
+      fill: "#00448C",
       "fill-opacity": 1.0,
     },
   };
@@ -34,8 +40,13 @@ const Maps = () => {
     "US-AK": 200,
     "US-AZ": 300,
     "US-AR": 400,
+    "US-FL": 120,
+    "US-TX": 150,
+    "US-NY": 30,
+    "US-NJ": 50,
+    "US-CA": 65,
   });
-  
+
   const selectedRegionsUS = Object.keys(mapData).reduce((acc, key) => {
     acc[key] = { zoom: true };
     return acc;
@@ -49,6 +60,10 @@ const Maps = () => {
     FR: 500,
     IT: 600,
     ES: 700,
+    PK: 450,
+    SA: 300,
+    RU: 500,
+    TR: 69,
   });
 
   const selectedRegions = Object.keys(worldData).reduce((acc, key) => {
@@ -76,11 +91,43 @@ const Maps = () => {
     ],
   };
 
+  const dataSource = Object.entries(mapData).map(([key, value]) => {
+    const stateCode = key.replace("US-", "");
+    return {
+      key,
+      States: stateCode,
+      devices: mapData[key],
+    };
+  });
+
+  const world = Object.entries(worldData).map(([key, value]) => {
+    return {
+      key,
+      Countries: countryNames[key],
+      devices: worldData[key],
+    };
+  });
+
+  const renderPopoverContent = (record) => {
+  
+    return (
+      <div>
+        <p>Key: {record?.States} : {record?.devices}</p>
+        <Button type="primary" onClick={() => console.log('Action 1')}>
+          Show Data
+        </Button>
+        <Button type="default" onClick={() => console.log('Action 2')}>
+          Download
+        </Button>
+      </div>
+    )};
+
+
   return (
     <div className="p-3">
-      {/* div containing USA and the table of its data */}
-      <div className="w-full h-[600px] flex flex-col md:flex-row mb-80 md:mb-5 ">
-        {/* div containing the map side of USA */}
+      {/* USA and the table of its data */}
+      <div className="w-full h-[600px] flex flex-col md:flex-row mb-80 md:mb-5">
+        {/* USA map */}
         <div className="md:w-[60%] h-full rounded-[6px] shadow-lg">
           <div className="w-full">
             <h1 className="p-3">Domestic Assets</h1>
@@ -99,36 +146,34 @@ const Maps = () => {
             />
           </div>
         </div>
-        {/* div containing the table side of USA */}
-        <div className="md:w-[39%] mt-5 md:mt-0 shadow-lg rounded-[6px] h-full">
+        {/* USA table */}
+        <div className="md:w-[39%] mt-5 md:mt-0 shadow-lg rounded-[6px] h-full ml-[1%]">
           <h1 className="p-3">States</h1>
           <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
-          <table className="w-full mt-[20px]">
-            <thead>
-              <tr>
-                <th className="bg-[#15498A] text-white p-3 text-left w-[200px]">
-                  States
-                </th>
-                <th className="bg-[#15498A] text-white p-3 text-left">
-                  # of Devices
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(mapData).map(([key, value]) => {
-                const stateCode = key.replace("US-", "");
-                return (
-                  <tr key={key} className="hover:bg-gray-100 border-b">
-                    <td className="p-3 w-[200px]">{stateCode}</td>
-                    <td className="p-3">{value}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <Table
+            className="mt-4"
+            rowClassName="bg-white hover:bg-gray-100"
+            columns={[
+              {
+                title: "States",
+                dataIndex: "States",
+                key: "States",
+              },
+              {
+                title: "# of Devices",
+                dataIndex: "devices",
+                key: "devices",
+              },
+            ]}
+            dataSource={dataSource}
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false,
+            }}
+          />
         </div>
       </div>
-      {/* Similar structure as above for the world map */}
+      {/* Similar structure for the world map */}
       <div className="w-full h-[600px] flex flex-col md:flex-row mb-5">
         <div className="md:w-[60%] h-full rounded-[6px] shadow-lg">
           <div className="w-full">
@@ -148,31 +193,43 @@ const Maps = () => {
             />
           </div>
         </div>
-        <div className="md:w-[39%] mt-5 md:mt-0 shadow-lg rounded-[6px] h-full">
+        <div className="md:w-[39%] mt-5 md:mt-0 shadow-lg rounded-[6px] h-full ml-[1%]">
           <h1 className="p-3">Countries</h1>
           <div className="w-full h-[1px] bg-[#C9C9C9] "></div>
-          <table className="w-full mt-[20px]">
-            <thead>
-              <tr>
-                <th className="bg-[#15498A] text-white p-3 text-left w-[200px]">
-                  Countries
-                </th>
-                <th className="bg-[#15498A] text-white p-3 text-left">
-                  # of Devices
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(worldData).map(([key, value]) => {
-                return (
-                  <tr key={key} className="hover:bg-gray-100 border-b">
-                    <td className="p-3 w-[200px]">{countryNames[key]}</td>
-                    <td className="p-3">{value}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <Table
+            className="mt-4"
+            rowClassName="bg-white hover:bg-gray-100"
+            columns={[
+              {
+                title: "Countries",
+                dataIndex: "Countries",
+                key: "Countries",
+              },
+              {
+                title: "# of Devices",
+                dataIndex: "devices",
+                key: "devices",
+              },
+            ]}
+            dataSource={world}
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false,
+            }}
+            components={{
+              body: {
+                row: ({ record, children, ...rest }) => (
+                  <Popover
+                    content={renderPopoverContent(record)}
+                    trigger="click"
+                    placement="top"
+                  >
+                    <tr {...rest}>{children}</tr>
+                  </Popover>
+                ),
+              },
+            }}
+          />
         </div>
       </div>
     </div>

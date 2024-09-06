@@ -1,7 +1,7 @@
-import Maps from '../src/common/components/Maps'
+import Charts from '../src/common/components/Charts'
 
 export default function Home() {
   return (
-    <Maps/>
+    <Charts/>
   );
 }
