@@ -142,7 +142,7 @@ const PieChart = () => {
             options={barChartX.options}
             series={barChartX.options.series}
             type="bar"
-            width="802px"
+            width="744px"
             height="244spx"
           />
         </div>
