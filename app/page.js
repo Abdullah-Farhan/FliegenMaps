@@ -1,4 +1,4 @@
-import Charts from '../src/common/components/Arrows'
+import Charts from '../src/common/components/Charts'
 
 export default function Home() {
   return (

@@ -25,7 +25,7 @@ const PieChart = () => {
     0
   )/ratingsMaintech.length;
 
-  const [ratingsParPlace, setRatingsParkPlace] = useState([5, 5 , 5, 5]);
+  const [ratingsParPlace, setRatingsParkPlace] = useState([5, 4 , 5, 5]);
   const avgParkPlaceRating = ratingsParPlace.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
@@ -154,7 +154,7 @@ const PieChart = () => {
         </div>
       </div>
       {/* vertical bar chart component - review chart */}
-      <div className="inline-block b-0 shadow-lg rounded-[6px] mb-10 h-[444px] mt-4">
+      <div className="inline-block b-0 shadow-lg rounded-[6px] mb-10 h-[444px] w-[802px] mt-4">
         <div className="w-full border-b-2 p-3 h-[53px] flex items-center">
           <h1>Overall Communication</h1>
         </div>
@@ -163,7 +163,7 @@ const PieChart = () => {
             options={barChartY.options}
             series={barChartY.options.series}
             type="bar"
-            width="802px"
+            width="774px"
             height="295px"
           />
         </div>
