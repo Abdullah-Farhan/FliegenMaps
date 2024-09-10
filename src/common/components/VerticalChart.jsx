@@ -6,19 +6,20 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const VerticalChart = () => {
   // Vertical Chart Data
-  const [ratingsMaintech, setRatingsMaintech] = useState([1, 2, 3, 4, 5]);
+  const [ratingsMaintech, setRatingsMaintech] = useState([1, 2, 3, 4, 5, 4, 3, 2, 1]);
+  // Calculating avg based on the type of data we get from backend
   const avgMaintechRating =
-    ratingsMaintech.reduce(
+    (ratingsMaintech.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0
-    ) / ratingsMaintech.length;
+    ) / ratingsMaintech.length).toFixed(2);
 
-  const [ratingsParPlace, setRatingsParkPlace] = useState([5, 4, 5, 5]);
+  const [ratingsParPlace, setRatingsParkPlace] = useState([5, 4, 5, 5, 3, 1, 4, 2, 2, 4, 1, 5, 5]);
   const avgParkPlaceRating =
-    ratingsParPlace.reduce(
+    (ratingsParPlace.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0
-    ) / ratingsParPlace.length;
+    ) / ratingsParPlace.length).toFixed(2);
   const barChartY = {
     options: {
       plotOptions: {
@@ -33,12 +34,12 @@ const VerticalChart = () => {
             {
               x: "Maintech",
               y: avgMaintechRating,
-              fillColor: "rgba(109, 142, 85, 1.0)",
+              fillColor: "rgba(84, 122, 55, 1.0)",
             },
             {
               x: "ParkPlace",
               y: avgParkPlaceRating,
-              fillColor: "rgba(230, 65, 92, 1.0)",
+              fillColor: "rgba(226, 32, 64, 1.0)",
             },
           ],
         },
@@ -68,7 +69,6 @@ const VerticalChart = () => {
           },
         },
       },
-      colors: ["rgba(109, 142, 85, 0.85)", "rgba(230, 65, 92, 0.85)"],
       
       xaxis: {
         type: "category",
@@ -96,9 +96,9 @@ const VerticalChart = () => {
           />
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-[-25px] bottom-0 mb-[28px]">
-          <div className="w-[13px] h-[13px] bg-[#6D8E55] rounded-[3px] mr-[4px] opacity-85"></div>
+          <div className="w-[13px] h-[13px] bg-[#547A37] rounded-[3px] mr-[4px] opacity-85"></div>
           <p className="text-[#ADB5BD] text-[12px] mr-[24px]">Maintech</p>
-          <div className="w-[13px] h-[13px] bg-[#E6415C] rounded-[3px] mr-[4px]"></div>
+          <div className="w-[13px] h-[13px] bg-[#E22040] rounded-[3px] mr-[4px]"></div>
           <p className="text-[#ADB5BD] text-[12px] opacity-85">ParkPlace</p>
         </div>
       </div>

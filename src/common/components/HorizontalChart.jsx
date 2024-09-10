@@ -44,7 +44,7 @@ const HorizontalChart = () => {
         max: 100,
         stepSize: 10,
       },
-      colors: ["rgba(109, 142, 85, 0.85)", "rgba(230, 65, 92, 0.85)"],
+      colors: ["rgba(84, 122, 55, 0.85)", "rgba(226, 32, 64, 0.85)"],
       yaxis: {
         labels: {
           show: false,
@@ -82,9 +82,9 @@ const HorizontalChart = () => {
           />
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-[50px] bottom-0 ">
-          <div className="w-[13px] h-[13px] bg-[#6D8E55] rounded-[3px] mr-[4px] opacity-85"></div>
+          <div className="w-[13px] h-[13px] bg-[#547A37] rounded-[3px] mr-[4px] opacity-85"></div>
           <p className="text-[#ADB5BD] text-[12px] mr-[24px]">Maintech</p>
-          <div className="w-[13px] h-[13px] bg-[#E6415C] rounded-[3px] mr-[4px]"></div>
+          <div className="w-[13px] h-[13px] bg-[#E22040] rounded-[3px] mr-[4px]"></div>
           <p className="text-[#ADB5BD] text-[12px] opacity-85">ParkPlace</p>
         </div>
       </div>
