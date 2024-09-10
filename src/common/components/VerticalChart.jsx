@@ -69,12 +69,15 @@ const VerticalChart = () => {
         },
       },
       colors: ["rgba(109, 142, 85, 0.85)", "rgba(230, 65, 92, 0.85)"],
-      legend: {
-        show: false,
-      },
+      
       xaxis: {
         type: "category",
       },
+      chart: {
+        toolbar:{
+            show:false
+        }
+      }
     },
   };
 
@@ -93,9 +96,9 @@ const VerticalChart = () => {
           />
         </div>
         <div className="flex flex-row justify-center items-center w-full mt-[-25px] bottom-0 mb-[28px]">
-          <div className="w-[13px] h-[13px] bg-[#6D8E55] rounded-sm mr-[4px] opacity-85"></div>
+          <div className="w-[13px] h-[13px] bg-[#6D8E55] rounded-[3px] mr-[4px] opacity-85"></div>
           <p className="text-[#ADB5BD] text-[12px] mr-[24px]">Maintech</p>
-          <div className="w-[13px] h-[13px] bg-[#E6415C] rounded-sm mr-[4px]"></div>
+          <div className="w-[13px] h-[13px] bg-[#E6415C] rounded-[3px] mr-[4px]"></div>
           <p className="text-[#ADB5BD] text-[12px] opacity-85">ParkPlace</p>
         </div>
       </div>
