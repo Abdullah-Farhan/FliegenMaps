@@ -1,4 +1,4 @@
-import Charts from '../src/common/components/VerticalChart'
+import Charts from '../src/common/components/PieChart'
 
 export default function Home() {
   return (
